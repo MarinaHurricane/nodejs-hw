@@ -7,7 +7,6 @@ import pino from 'pino-http';
 const app = express();
 
 const PORT = process.env.PORT;
-const NODE_ENV = process.env.NODE_ENV;
 
 app.use(cors());
 app.use(helmet());
@@ -49,9 +48,8 @@ app.use((req, res) => {
 });
 
 app.use((err, req, res, next) => {
-  const isProd = NODE_ENV === 'production';
   res.status(500).json({
-    message: isProd ? 'Something went wrong' : err.stack,
+    message: err.stack,
   });
 });
 
