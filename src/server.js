@@ -16,9 +16,9 @@ app.use(cors());
 app.use(helmet());
 app.use(express.json());
 
-app.use(notesRoutes);
-
 app.use(logger);
+
+app.use(notesRoutes);
 
 app.use(notFoundHandler);
 
