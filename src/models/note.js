@@ -24,9 +24,11 @@ const noteSchema = new Schema(
   },
 );
 
+noteSchema.index({
+  title: 'text',
+  content: 'text'
+});
+
 export const Note = model('Note', noteSchema);
 
-// title — обов’язковий рядок, з параметром trim: true
-// content — необов’язковий рядок (за замовчуванням порожній), з параметром trim: true
-// tag — приймає одне із фіксованих значень (Work, Personal, Meeting, Shopping, Ideas, Travel, Finance, Health, Important, Todo).
-// Необов’язковий рядок (за замовчуванням Todo)
+

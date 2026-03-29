@@ -13,14 +13,14 @@ export const getAllNotesSchema = {
 
 export const createNoteSchema = {
   [Segments.BODY]: Joi.object({
-    title: Joi.string().min(1),
+    title: Joi.string().min(1).required(),
     content: Joi.string().allow(''),
     tag: Joi.string().valid(...TAGS),
   }),
 };
 
 const objectIdValidator = (value, helpers) => {
-  return isValidObjectId(value) ? value : helpers.message('Invalid id format');
+  return isValidObjectId(value) ? value : helpers.message('Invalid MongoDB ObjectId');
 };
 
 export const noteIdSchema = {
