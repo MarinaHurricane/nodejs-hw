@@ -20,13 +20,11 @@ export const getAllNotes = async (req, res) => {
   //   });
   // }
 
-  if( search) {
+  if (search) {
     notesQuery.where({
       $text: { $search: search },
     });
   }
-
-
 
   const [totalNotes, notes] = await Promise.all([
     notesQuery.clone().countDocuments(),
