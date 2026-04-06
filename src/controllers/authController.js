@@ -27,10 +27,8 @@ export const registerUser = async (req, res) => {
 
 export const loginUser = async (req, res) => {
   const { email, password } = req.body;
-  console.log(email);
 
   const user = await User.findOne({ email });
-  console.log(user);
   if (!user) {
     throw createHttpError(401, 'Invalid credentials');
   }
@@ -39,6 +37,8 @@ export const loginUser = async (req, res) => {
   if (!isValidPassword) {
     throw createHttpError(401, 'Invalid credentials');
   }
+
+  await Session.deleteOne({ userId: user._id });
 
   const newSession = await createSession(user._id);
 
@@ -70,6 +70,11 @@ export const refreshUserSession = async (req, res) => {
   });
 
   if (!session) {
+    throw createHttpError(401, 'Session not found');
+  }
+
+  const isTokenExpired = new Date() > new Date(session.refreshTokenValidUntil);
+  if (isTokenExpired) {
     throw createHttpError(401, 'Session token expired');
   }
 
@@ -85,5 +90,3 @@ export const refreshUserSession = async (req, res) => {
     message: 'Session refreshed',
   });
 };
-
-

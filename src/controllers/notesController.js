@@ -36,7 +36,6 @@ export const getAllNotes = async (req, res) => {
   const totalPages = Math.ceil(totalNotes / perPage);
 
   res.status(200).json({ page, perPage, totalNotes, totalPages, notes });
-  console.log(notes);
 };
 
 export const getNoteById = async (req, res) => {
@@ -65,7 +64,6 @@ export const deleteNote = async (req, res) => {
     _id: noteId,
     userId: req.user._id,
   });
-  console.log('hello');
 
   if (!note) {
     throw createHttpError(404, 'Note not found');
