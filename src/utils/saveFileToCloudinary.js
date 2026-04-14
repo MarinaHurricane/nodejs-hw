@@ -11,6 +11,7 @@ export const saveFileToCloudinary = async (buffer) => {
   return new Promise((resolve, reject) => {
     const uploadStream = cloudinary.uploader.upload_stream(
       {
+        folder: 'notes-api/avatars',
         resource_type: 'image',
         overwrite: true,
         unique_filename: false,
